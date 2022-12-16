@@ -1,12 +1,10 @@
 package ma.ensa.userservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import ma.ensa.userservice.Dto.UserDto;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Getter
@@ -29,13 +27,5 @@ public class User {
     private String password;
     @Enumerated
     private Role role;
-    @JsonIgnore
-    @ManyToMany(cascade={CascadeType.ALL})
-    @JoinTable(name="teacher_student",
-            joinColumns={@JoinColumn(name="student_id")},
-            inverseJoinColumns={@JoinColumn(name="teacher_id")})
-    private List<User> teachers = new ArrayList<>();
-    @JsonIgnore
-    @ManyToMany(mappedBy="teachers")
-    private List<User> students = new ArrayList<>();
+
 }
