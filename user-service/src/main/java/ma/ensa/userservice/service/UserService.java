@@ -20,8 +20,13 @@ public class UserService {
     public static ModelMapper mapper = new ModelMapper();
 
     public Optional<List<UserDto>> getAllUser() {
-        List<UserDto> userDtos = Optional.ofNullable(userRepository.findAll()).orElse(Collections.emptyList()).stream().map(user -> toUserDto(user)).collect(Collectors.toList());
+        List<UserDto> userDtos = userRepository.findAll()
+                .stream()
+                .map(user -> toUserDto(user))
+                .collect(Collectors.toList());
+
         return Optional.of(userDtos);
+
     }
 
     private UserDto toUserDto(User user) {
@@ -43,7 +48,6 @@ public class UserService {
     public Optional<UserDto> getUserById(Long user_id) {
         return Optional.of(toUserDto(userRepository.findByUserId(user_id)));
     }
-
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
