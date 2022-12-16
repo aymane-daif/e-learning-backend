@@ -21,8 +21,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        Optional<List<User>> users = userService.getAllUser();
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        Optional<List<UserDto>> users = userService.getAllUser();
         if (users.isPresent()){
             log.info("list of users");
             return ResponseEntity.status(HttpStatus.OK).body(users.get());
@@ -30,13 +30,13 @@ public class UserController {
         log.info("no user found");
         return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
     }
-
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
-        Optional<User> user = userService.getUserById(userId);
-        if (user.isPresent()){
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
+        Optional<UserDto> userDto = userService.getUserById(userId);
+
+        if (userDto.isPresent()){
             log.info("user is here");
-            return ResponseEntity.status(HttpStatus.OK).body(user.get());
+            return ResponseEntity.status(HttpStatus.OK).body(userDto.get());
         }
         log.info("user not found");
         return ResponseEntity.status(HttpStatus.OK).body(null);

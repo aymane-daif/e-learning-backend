@@ -1,9 +1,13 @@
 package ma.ensa.course.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import ma.ensa.course.entities.Course;
-import java.util.List;
+import ma.ensa.course.entities.CourseLevel;
+import ma.ensa.course.entities.PriceType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CourseRepository extends JpaRepository<Course, Long> {
-    List<Course> findAll();
+public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
+    Page<Course> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
+    Page<Course> findByCourseLevelAndPriceType(CourseLevel courseLevel, PriceType priceType, Pageable pageable);
 }

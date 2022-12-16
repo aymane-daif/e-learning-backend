@@ -1,23 +1,36 @@
 package ma.ensa.course.controllers;
 
-import ma.ensa.course.entities.Course;
+import ma.ensa.course.dtos.CourseDto;
+import ma.ensa.course.entities.CourseLevel;
+import ma.ensa.course.entities.PriceType;
 import ma.ensa.course.services.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
+    private final CourseService courseService;
 
-    @Autowired
-    private CourseService courseService;
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @GetMapping
-    public List<Course> getAllCourses() {
-        return courseService.getAllCourses();
+    public Page<CourseDto> getCourses(@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int size,
+                                      @RequestParam(required = false) String keyword) {
+        return courseService.getCoursesByKeyword(page, size, keyword);
+    }
+
+    @GetMapping(path = "/filter")
+    public Page<CourseDto> getCoursesByCourseLevelOrPriceType(@RequestParam(defaultValue = "0") int page,
+                                      @RequestParam(defaultValue = "10") int size,
+                                      @RequestParam(required = false) CourseLevel courseLevel,
+                                      @RequestParam(defaultValue = "PREMIUM") PriceType priceType) {
+        return courseService.getCoursesByCourseLevelAndPriceType(page, size, courseLevel, priceType);
     }
 }

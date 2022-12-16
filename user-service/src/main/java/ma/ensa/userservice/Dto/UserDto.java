@@ -1,14 +1,11 @@
 package ma.ensa.userservice.Dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import ma.ensa.userservice.entity.Role;
-import ma.ensa.userservice.entity.User;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+
 import java.util.Date;
-import java.util.List;
+
 
 @Getter
 @Setter
