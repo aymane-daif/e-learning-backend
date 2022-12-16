@@ -25,7 +25,5 @@ public class UserDto {
     private Date dateOfBirth;
     private String password;
     private Role role;
-    private List<User> students = new ArrayList<>();
-    private List<User> teachers = new ArrayList<>();
 
 }

@@ -2,7 +2,6 @@ package ma.ensa.userservice.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.ensa.userservice.Dto.UserDto;
-import ma.ensa.userservice.entity.Role;
 import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,29 +31,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
     }
 
-    @GetMapping("/teachers")
-    public ResponseEntity<List<User>> getAllTeachers() {
-        Optional<List<User>> users = userService.getAllUserByRole(Role.TEACHER);
-        if (users.isPresent()){
-            log.info("list of teachers");
-            return ResponseEntity.status(HttpStatus.OK).body(users.get());
-        }
-        log.info("no teachers found");
-        return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
-    }
-    @GetMapping("/students")
-    public ResponseEntity<List<User>> getAllStudents() {
-        Optional<List<User>> users = userService.getAllUserByRole(Role.STUDENT);
-        if (users.isPresent()){
-            log.info("list of students");
-            return ResponseEntity.status(HttpStatus.OK).body(users.get());
-        }
-        log.info("no students found");
-        return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
-    }
-    @GetMapping("/{user_id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long user_id) {
-        Optional<User> user = userService.getUserById(user_id);
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable Long userId) {
+        Optional<User> user = userService.getUserById(userId);
         if (user.isPresent()){
             log.info("user is here");
             return ResponseEntity.status(HttpStatus.OK).body(user.get());
@@ -64,8 +43,21 @@ public class UserController {
     }
     @PostMapping
     public ResponseEntity<Long> createNewUser(@RequestBody UserDto userDto) {
-        Optional<Long> user_id = userService.createNewUser(userDto);
+        Optional<Long> userId = userService.createNewUser(userDto);
         log.info("user created");
-        return ResponseEntity.status(HttpStatus.CREATED).body(user_id.get());
+        return ResponseEntity.status(HttpStatus.CREATED).body(userId.get());
+    }
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> DeleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+        log.info("user deleted");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<Long> updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
+        Optional<Long> user_id = userService.updateUser(userId, userDto);
+        log.info("user updated");
+        return ResponseEntity.status(HttpStatus.OK).body(user_id.get());
     }
 }
