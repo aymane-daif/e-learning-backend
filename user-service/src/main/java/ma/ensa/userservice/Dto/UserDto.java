@@ -22,5 +22,4 @@ public class UserDto {
     private Date dateOfBirth;
     private String password;
     private Role role;
-
 }

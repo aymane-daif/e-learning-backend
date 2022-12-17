@@ -2,7 +2,6 @@ package ma.ensa.userservice.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.ensa.userservice.Dto.UserDto;
-import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,13 +21,15 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers() {
-        Optional<List<UserDto>> users = userService.getAllUser();
-        if (users.isPresent()){
-            log.info("list of users");
-            return ResponseEntity.status(HttpStatus.OK).body(users.get());
+        List<UserDto> users = userService.getAllUser();
+        if (users.isEmpty()){
+            log.info("no user found");
         }
-        log.info("no user found");
-        return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
+        else{
+            log.info("list of users");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+
     }
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
