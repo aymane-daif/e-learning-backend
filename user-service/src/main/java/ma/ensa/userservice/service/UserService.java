@@ -19,13 +19,11 @@ public class UserService {
 
     public static ModelMapper mapper = new ModelMapper();
 
-    public Optional<List<UserDto>> getAllUser() {
-        List<UserDto> userDtos = userRepository.findAll()
-                .stream()
-                .map(user -> toUserDto(user))
-                .collect(Collectors.toList());
+    public List<UserDto> getAllUser() {
 
-        return Optional.of(userDtos);
+        List<UserDto> userDtos = userRepository.findAll()
+                .stream().map(user -> toUserDto(user)).collect(Collectors.toList());
+        return userDtos;
 
     }
 
