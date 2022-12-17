@@ -15,8 +15,10 @@ public class RoutingConfig {
                 .route( p ->p
                         .path("/users/**")
                         .uri("lb://user-service"))
+                .route( p ->p
+                        .path("/courses/**")
+                        .uri("lb://course-service"))
                 .build();
-
     }
 
 }
