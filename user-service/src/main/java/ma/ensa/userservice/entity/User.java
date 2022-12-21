@@ -24,8 +24,19 @@ public class User {
     private String phone;
     @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
-    private String password;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private Role role;
+
+
+    public User(UserDto userDto){
+        userId = userDto.getUserId();
+        firstName = userDto.getFirstName();
+        lastName = userDto.getLastName();
+        nickname =  userDto.getNickname();
+        email = userDto.getEmail();
+        phone = userDto.getPhone();
+        dateOfBirth = userDto.getDateOfBirth();
+        role = userDto.getRole();
+    }
 
 }
