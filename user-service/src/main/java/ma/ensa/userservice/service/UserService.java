@@ -1,12 +1,20 @@
 package ma.ensa.userservice.service;
 
+import com.netflix.discovery.converters.Auto;
 import ma.ensa.userservice.Dto.UserDto;
 import ma.ensa.userservice.entity.User;
+import ma.ensa.userservice.exception.EmailAlreadyUsed;
+import ma.ensa.userservice.exception.KeycloakException;
+import ma.ensa.userservice.exception.NickNameALreadyUsed;
+import ma.ensa.userservice.keycloak.KeycloakConfig;
+import ma.ensa.userservice.keycloak.KeycloakUtils;
 import ma.ensa.userservice.repository.UserRepository;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +24,9 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private KeycloakService keycloakService;
 
     public static ModelMapper mapper = new ModelMapper();
 
@@ -31,21 +42,22 @@ public class UserService {
         return mapper.map(user, UserDto.class);
     }
 
-    public Optional<Long> createNewUser(UserDto userDto) {
-        User user = new User();
-        user.setEmail(userDto.getEmail());
-        user.setNickname(userDto.getNickname());
-        user.setRole(userDto.getRole());
-        user.setPhone(userDto.getPhone());
-        user.setDateOfBirth(userDto.getDateOfBirth());
-        user.setPassword(userDto.getPassword());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
+    public Optional<Long> createNewUser(UserDto userDto) throws NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
+
+        nickNameAlreadyUsed(userDto.getNickname());
+        emailAlreadyUsed(userDto.getEmail());
+
+        keycloakService.createUser(userDto);
+
+        User user = new User(userDto);
         return Optional.of(userRepository.save(user).getUserId());
+
     }
+
     public Optional<UserDto> getUserById(Long user_id) {
         return Optional.of(toUserDto(userRepository.findByUserId(user_id)));
     }
+
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
@@ -70,10 +82,19 @@ public class UserService {
         if (userDto.getDateOfBirth() != null) {
             user.setDateOfBirth(userDto.getDateOfBirth());
         }
-        if (userDto.getPassword() != null) {
-            user.setPassword(userDto.getPassword());
-        }
         return Optional.of(userRepository.save(user).getUserId());
+    }
+
+    public void nickNameAlreadyUsed(String nickName) throws NickNameALreadyUsed {
+        if(userRepository.findUserByNickname(nickName).isPresent()){
+            throw new NickNameALreadyUsed();
+        }
+    }
+
+    public void emailAlreadyUsed(String email) throws EmailAlreadyUsed {
+        if(userRepository.findUserByEmail(email).isPresent()){
+            throw new EmailAlreadyUsed();
+        }
     }
 
 }
