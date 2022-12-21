@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,7 +47,6 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Long> createNewUser(@RequestBody UserDto userDto) throws
             NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
-
         Optional<Long> userId = userService.createNewUser(userDto);
         log.info("user created");
         return ResponseEntity.status(HttpStatus.CREATED).body(userId.get());
