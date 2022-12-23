@@ -5,12 +5,6 @@ server:
 spring:
   cloud:
     gateway:
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "http://localhost:3000"
-            allowedHeaders: "*"
-            allowedMethods: "*"
       routes:
       - id: user-service
         uri: lb://user-service
