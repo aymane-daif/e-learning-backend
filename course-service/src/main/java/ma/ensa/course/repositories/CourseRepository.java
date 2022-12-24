@@ -9,5 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
     Page<Course> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
+    Page<Course> findByPriceType(PriceType priceType, Pageable pageable);
+    Page<Course> findByCourseLevel(CourseLevel courseLevel, Pageable pageable);
     Page<Course> findByCourseLevelAndPriceType(CourseLevel courseLevel, PriceType priceType, Pageable pageable);
 }

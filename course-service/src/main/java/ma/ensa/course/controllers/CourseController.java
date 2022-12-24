@@ -21,16 +21,16 @@ public class CourseController {
 
     @GetMapping
     public Page<CourseDto> getCourses(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "10") int size,
+                                      @RequestParam(defaultValue = "7") int size,
                                       @RequestParam(required = false) String keyword) {
         return courseService.getCoursesByKeyword(page, size, keyword);
     }
 
     @GetMapping(path = "/filter")
     public Page<CourseDto> getCoursesByCourseLevelOrPriceType(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "10") int size,
+                                      @RequestParam(defaultValue = "7") int size,
                                       @RequestParam(required = false) CourseLevel courseLevel,
-                                      @RequestParam(defaultValue = "PREMIUM") PriceType priceType) {
+                                      @RequestParam(required = false) PriceType priceType) {
         return courseService.getCoursesByCourseLevelAndPriceType(page, size, courseLevel, priceType);
     }
 }

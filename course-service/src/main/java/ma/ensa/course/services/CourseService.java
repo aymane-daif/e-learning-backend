@@ -23,6 +23,14 @@ public class CourseService {
     }
 
     public Page<CourseDto> getCoursesByCourseLevelAndPriceType(int page, int size, CourseLevel courseLevel, PriceType priceType) {
+        if(courseLevel == null) {
+            return courseRepository.findByPriceType(priceType, PageRequest.of(page, size))
+                    .map(CourseDto::toDto);
+        }
+        if(priceType == null) {
+            return courseRepository.findByCourseLevel(courseLevel, PageRequest.of(page, size))
+                    .map(CourseDto::toDto);
+        }
         return courseRepository
                 .findByCourseLevelAndPriceType(courseLevel, priceType, PageRequest.of(page, size))
                 .map(CourseDto::toDto);
