@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
@@ -22,9 +25,27 @@ public class CourseService {
                 .map(CourseDto::toDto);
     }
 
-    public Page<CourseDto> getCoursesByCourseLevelAndPriceType(int page, int size, CourseLevel courseLevel, PriceType priceType) {
+    public List<CourseDto> getCoursesByCourseLevelAndPriceType(CourseLevel courseLevel, PriceType priceType) {
+        if(courseLevel == null) {
+            return courseRepository.findByPriceType(priceType)
+                    .stream()
+                    .map(CourseDto::toDto)
+                    .toList();
+        }
+        if(priceType == null) {
+            return courseRepository.findByCourseLevel(courseLevel)
+                    .stream()
+                    .map(CourseDto::toDto)
+                    .toList();
+        }
         return courseRepository
-                .findByCourseLevelAndPriceType(courseLevel, priceType, PageRequest.of(page, size))
-                .map(CourseDto::toDto);
+                .findByCourseLevelAndPriceType(courseLevel, priceType)
+                .stream()
+                .map(CourseDto::toDto)
+                .toList();
+    }
+
+    public Optional<CourseDto> getCourseById(Long id) {
+        return courseRepository.findById(id).map(CourseDto::toDto);
     }
 }
