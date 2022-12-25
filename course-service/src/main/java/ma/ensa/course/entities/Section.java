@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 public class Section {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,4 +21,5 @@ public class Section {
 
     @OneToMany
     private Set<Lesson> lessons;
+
 }

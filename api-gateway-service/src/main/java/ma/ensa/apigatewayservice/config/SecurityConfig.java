@@ -17,11 +17,11 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeExchange(exchange ->
 
-                        exchange.pathMatchers("/eureka/**")
-                                .permitAll()
-                                .pathMatchers("/users/private").authenticated()
-                                .anyExchange()
-                                .permitAll())
+                            exchange.pathMatchers("/eureka/**")
+                                    .permitAll()
+                                    .pathMatchers("/users/prive").authenticated()
+                                    .anyExchange()
+                                    .permitAll())
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
 
         return serverHttpSecurity.build();
