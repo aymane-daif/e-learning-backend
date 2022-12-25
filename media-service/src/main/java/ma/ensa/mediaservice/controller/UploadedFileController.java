@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("/uploaded-file")
+@RequestMapping("/media")
 @AllArgsConstructor
 public class UploadedFileController {
     private UploadedFileService uploadedFileService;
@@ -34,9 +34,12 @@ public class UploadedFileController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @PostMapping(value = "/{course_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/upload-file/{course_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<UploadedFileDto> uploadCourseSupport(@RequestParam MultipartFile file, @PathVariable Long course_id) throws FileAlreadyExists {
         log.info("Starting .....");
+        if(file.getContentType().startsWith("image")) {
+            return ResponseEntity.status(HttpStatus.OK).body(this.eventCloudService.uploadFile(file,"/course/image/", course_id));
+        }
         return ResponseEntity.status(HttpStatus.OK).body(this.eventCloudService.uploadFile(file,"/course/video/", course_id));
     }
 
