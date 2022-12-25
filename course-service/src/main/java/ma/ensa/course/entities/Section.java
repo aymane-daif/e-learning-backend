@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ma.ensa.course.dtos.LessonDto;
 import ma.ensa.course.dtos.SectionDto;
 
 import javax.persistence.*;
