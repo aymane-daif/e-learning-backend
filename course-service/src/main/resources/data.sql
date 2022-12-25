@@ -53,3 +53,9 @@ INSERT INTO section_lessons(section_id, lessons_id) VALUES
                                                         (4, 8),
                                                         (4, 9),
                                                         (4, 10);
+
+INSERT INTO course_sections(course_id, sections_id) VALUES
+                                                        (1, 1),
+                                                        (1, 2),
+                                                        (1, 3),
+                                                        (1, 4);

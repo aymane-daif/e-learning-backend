@@ -8,6 +8,8 @@ import ma.ensa.course.dtos.CourseDto;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor @AllArgsConstructor @Data @Builder
 @Entity
@@ -33,6 +35,9 @@ public class Course {
     @JoinColumn(name = "instructor_id")
     private Instructor instructor;
 
+    @OneToMany
+    private Set<Section> sections;
+
     public static Course fromDto(CourseDto courseDto) {
         return Course.builder()
                 .id(courseDto.getId())
@@ -45,6 +50,11 @@ public class Course {
                 .courseLevel(courseDto.getCourseLevel())
                 .priceType(courseDto.getPriceType())
                 .instructor(Instructor.fromDto(courseDto.getInstructorDto()))
+                .sections(getCollectedSections(courseDto))
                 .build();
+    }
+
+    private static Set<Section> getCollectedSections(CourseDto courseDto) {
+        return courseDto.getSectionDtos().stream().map(Section::fromDto).collect(Collectors.toSet());
     }
 }
