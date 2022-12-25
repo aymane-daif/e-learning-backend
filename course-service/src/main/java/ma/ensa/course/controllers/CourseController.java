@@ -5,12 +5,10 @@ import ma.ensa.course.entities.CourseLevel;
 import ma.ensa.course.entities.PriceType;
 import ma.ensa.course.services.CourseService;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/courses")
@@ -33,5 +31,10 @@ public class CourseController {
                                       @RequestParam(required = false) CourseLevel courseLevel,
                                       @RequestParam(required = false) PriceType priceType) {
         return courseService.getCoursesByCourseLevelAndPriceType(courseLevel, priceType);
+    }
+
+    @GetMapping(path = "/{id}")
+    public Optional<CourseDto> getCourseById(@PathVariable Long id) {
+        return courseService.getCourseById(id);
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -42,5 +43,9 @@ public class CourseService {
                 .stream()
                 .map(CourseDto::toDto)
                 .toList();
+    }
+
+    public Optional<CourseDto> getCourseById(Long id) {
+        return courseRepository.findById(id).map(CourseDto::toDto);
     }
 }
