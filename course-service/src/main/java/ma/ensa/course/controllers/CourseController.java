@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/courses")
 public class CourseController {
@@ -27,10 +29,9 @@ public class CourseController {
     }
 
     @GetMapping(path = "/filter")
-    public Page<CourseDto> getCoursesByCourseLevelOrPriceType(@RequestParam(defaultValue = "0") int page,
-                                      @RequestParam(defaultValue = "7") int size,
+    public List<CourseDto> getCoursesByCourseLevelOrPriceType(
                                       @RequestParam(required = false) CourseLevel courseLevel,
                                       @RequestParam(required = false) PriceType priceType) {
-        return courseService.getCoursesByCourseLevelAndPriceType(page, size, courseLevel, priceType);
+        return courseService.getCoursesByCourseLevelAndPriceType(courseLevel, priceType);
     }
 }
