@@ -14,11 +14,11 @@ public class CloudFileHelper {
     private static final Random RANDOM = new SecureRandom();
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
-    public static File getTempFileFromMultiPartFile(MultipartFile multipartFile) {
+    public static File getTempFileFromMultiPartFile(MultipartFile multipartFile, Long course_id) {
         String fullFileName = multipartFile.getOriginalFilename();
         File file = null;
         try {
-            String fileName = fullFileName.substring(0, fullFileName.indexOf('.')) + generateKey(10);
+            String fileName = fullFileName.substring(0, fullFileName.indexOf('.')) + course_id;
             String extension = fullFileName.substring(fullFileName.indexOf('.') + 1);
             file = File.createTempFile(fileName, extension);
             multipartFile.transferTo(file);
@@ -26,14 +26,5 @@ public class CloudFileHelper {
             log.error("Error while trying to get file from multiPartFile", e);
         }
         return file;
-    }
-
-    public static String generateKey(int stringSize) {
-        StringBuilder returnValue = new StringBuilder("_");
-
-        for (int i = 0; i < stringSize; i++) {
-            returnValue.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
-        }
-        return new String(returnValue);
     }
 }

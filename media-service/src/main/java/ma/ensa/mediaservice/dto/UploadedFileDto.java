@@ -15,5 +15,5 @@ public class UploadedFileDto {
     private Long id;
     private String path;
     private String sharedPath;
-    private Long course_id;
+    private Long courseId;
 }

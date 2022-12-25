@@ -18,6 +18,6 @@ public class UploadedFile {
     @Column(unique = true)
     private String path;
     private String sharedPath;
-    private Long course_id;
+    private Long courseId;
 
 }
