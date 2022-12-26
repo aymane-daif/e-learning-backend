@@ -47,6 +47,7 @@ public class UserController {
     @PostMapping
     public ResponseEntity<Long> createNewUser(@RequestBody UserDto userDto) throws
             NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
+
         Optional<Long> userId = userService.createNewUser(userDto);
         log.info("user created");
         return ResponseEntity.status(HttpStatus.CREATED).body(userId.get());

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Builder
 @Entity
 public class Section {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

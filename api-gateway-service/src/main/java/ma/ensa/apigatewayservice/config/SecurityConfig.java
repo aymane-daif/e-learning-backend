@@ -19,7 +19,6 @@ public class SecurityConfig {
         serverHttpSecurity
                 .csrf().disable()
                 .authorizeExchange(exchange ->
-
                         exchange.pathMatchers("/eureka/**")
                                 .permitAll()
                                 .pathMatchers("/users/private", "/courses").authenticated()
