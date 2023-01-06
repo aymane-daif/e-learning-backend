@@ -6,6 +6,7 @@ import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.exception.EmailAlreadyUsed;
 import ma.ensa.userservice.exception.KeycloakException;
 import ma.ensa.userservice.exception.NickNameALreadyUsed;
+import ma.ensa.userservice.exception.UserDoesntExist;
 import ma.ensa.userservice.keycloak.KeycloakConfig;
 import ma.ensa.userservice.keycloak.KeycloakUtils;
 import ma.ensa.userservice.repository.UserRepository;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -43,12 +45,12 @@ public class UserService {
     }
 
     public Optional<Long> createNewUser(UserDto userDto) throws NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
-
+        System.out.println(userDto);
         nickNameAlreadyUsed(userDto.getNickname());
         emailAlreadyUsed(userDto.getEmail());
-
+        System.out.println("1");
         keycloakService.createUser(userDto);
-
+        System.out.println("2");
         User user = new User(userDto);
         return Optional.of(userRepository.save(user).getUserId());
 
@@ -95,6 +97,13 @@ public class UserService {
         if(userRepository.findUserByEmail(email).isPresent()){
             throw new EmailAlreadyUsed();
         }
+    }
+
+    public UserDto getUserByEmail(String email) throws UserDoesntExist {
+
+        User user = userRepository.findUserByEmail(email).orElseThrow(()->new UserDoesntExist());
+        return toUserDto(user);
+
     }
 
 }

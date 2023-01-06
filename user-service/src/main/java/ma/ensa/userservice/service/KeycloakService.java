@@ -20,10 +20,10 @@ public class KeycloakService {
 
     public void createUser(UserDto userDto) throws KeycloakException {
         try{
+            System.out.println("3");
             Response response = KeycloakConfig
                     .getUsersResource()
                     .create(KeycloakUtils.createUserRepresentation(userDto));
-
             if(response.getStatus() != 201){
                 log.error("there is a keycloak problem");
                 throw new KeycloakException();
