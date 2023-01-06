@@ -8,10 +8,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
     Page<Course> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
     List<Course> findByPriceType(PriceType priceType);
     List<Course> findByCourseLevel(CourseLevel courseLevel);
     List<Course> findByCourseLevelAndPriceType(CourseLevel courseLevel, PriceType priceType);
+
 }

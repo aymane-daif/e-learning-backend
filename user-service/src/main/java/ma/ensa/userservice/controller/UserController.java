@@ -2,9 +2,11 @@ package ma.ensa.userservice.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.ensa.userservice.Dto.UserDto;
+import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.exception.EmailAlreadyUsed;
 import ma.ensa.userservice.exception.KeycloakException;
 import ma.ensa.userservice.exception.NickNameALreadyUsed;
+import ma.ensa.userservice.exception.UserDoesntExist;
 import ma.ensa.userservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,6 +55,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userId.get());
 
     }
+
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> DeleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
@@ -66,4 +69,15 @@ public class UserController {
         log.info("user updated");
         return ResponseEntity.status(HttpStatus.OK).body(user_id.get());
     }
+
+    @GetMapping("/email/{userEmail}")
+    public ResponseEntity<UserDto> checkUserExistenceByEmail(@PathVariable String userEmail)
+            throws UserDoesntExist {
+        System.out.println(userEmail);
+        UserDto user = userService.getUserByEmail(userEmail);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
+
+    }
+
 }

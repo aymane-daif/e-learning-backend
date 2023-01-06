@@ -4,6 +4,7 @@ package ma.ensa.userservice.controller;
 import ma.ensa.userservice.exception.EmailAlreadyUsed;
 import ma.ensa.userservice.exception.KeycloakException;
 import ma.ensa.userservice.exception.NickNameALreadyUsed;
+import ma.ensa.userservice.exception.UserDoesntExist;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,5 +27,10 @@ public class ExceptionHandlerController {
     @ExceptionHandler(KeycloakException.class)
     public ResponseEntity<String> keycloakProblem(Exception exp, WebRequest request){
         return new ResponseEntity<>(exp.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(UserDoesntExist.class)
+    public ResponseEntity<String> userDoesntExist(Exception exp, WebRequest request){
+        return new ResponseEntity<>(exp.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
