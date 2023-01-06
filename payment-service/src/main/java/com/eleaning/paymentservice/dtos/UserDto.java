@@ -5,11 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Data
-public class PaymentDto {
-
-    private final String token;
-    private final Double price;
-
+@AllArgsConstructor @NoArgsConstructor
+public class UserDto {
+    private Long userId;
 }
