@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
     Page<Course> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
