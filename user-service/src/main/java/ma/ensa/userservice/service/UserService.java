@@ -1,22 +1,15 @@
 package ma.ensa.userservice.service;
 
-import com.netflix.discovery.converters.Auto;
 import ma.ensa.userservice.Dto.UserDto;
 import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.exception.EmailAlreadyUsed;
 import ma.ensa.userservice.exception.KeycloakException;
 import ma.ensa.userservice.exception.NickNameALreadyUsed;
 import ma.ensa.userservice.exception.UserDoesntExist;
-import ma.ensa.userservice.keycloak.KeycloakConfig;
-import ma.ensa.userservice.keycloak.KeycloakUtils;
 import ma.ensa.userservice.repository.UserRepository;
-import org.keycloak.representations.idm.UserRepresentation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.ws.rs.core.Response;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

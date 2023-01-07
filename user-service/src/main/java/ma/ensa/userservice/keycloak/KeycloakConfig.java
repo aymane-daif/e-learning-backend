@@ -16,6 +16,7 @@ public class KeycloakConfig {
     final static String USERNAME = "admin";
     final static String PASSWORD = "admin";
 
+
     public KeycloakConfig() {
     }
 
