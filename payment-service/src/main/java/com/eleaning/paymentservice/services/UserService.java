@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
-@FeignClient(name="user-service")
+@FeignClient(name="user-serviceclient")
 public interface UserService {
 
     @GetMapping("/users/email/{userEmail}")

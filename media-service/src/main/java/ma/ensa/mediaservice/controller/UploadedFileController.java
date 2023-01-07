@@ -48,7 +48,6 @@ public class UploadedFileController {
         if(uploadedFileDtos.isPresent()) {
             return ResponseEntity.status(HttpStatus.OK).body(uploadedFileDtos.get());
         }
-        else
             return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name="course-service")
+@FeignClient(name="course-serviceclient")
 @Service
 public interface CourseService {
 

@@ -1,5 +1,6 @@
 package ma.ensa.course.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import ma.ensa.course.dtos.CourseDto;
 import ma.ensa.course.entities.CourseLevel;
 import ma.ensa.course.entities.PriceType;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/courses")
+@Slf4j
 public class CourseController {
     private final CourseService courseService;
 
@@ -36,6 +38,7 @@ public class CourseController {
 
     @GetMapping(path = "/{id}")
     public Optional<CourseDto> getCourseById(@PathVariable Long id) {
+        log.info("getting course");
         return courseService.getCourseById(id);
     }
 

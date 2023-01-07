@@ -10,12 +10,15 @@ import com.eleaning.paymentservice.dtos.UserDto;
 import com.eleaning.paymentservice.entities.Sale;
 import com.eleaning.paymentservice.repositories.SaleRepository;
 import com.eleaning.paymentservice.stripe.StripeClient;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -30,6 +33,7 @@ public class PaymentService {
     private CourseService courseService;
     @Autowired
     private UserService userService;
+    public static ModelMapper mapper = new ModelMapper();
 
     public List<SaleDto> buyCourse(PaymentDto paymentDto, String userEmail)
             throws Exception {
@@ -80,4 +84,13 @@ public class PaymentService {
         }
     }
 
+    public Optional<List<SaleDto>> getAllSalesOfUsers(Long userId) {
+        List<SaleDto> saleDtos = saleRepository.findAllByUserId(userId)
+                .stream().map(sale -> toSaleDto(sale)).collect(Collectors.toList());
+        return Optional.of(saleDtos);
+    }
+
+    private SaleDto toSaleDto(Sale sale) {
+        return mapper.map(sale, SaleDto.class);
+    }
 }
