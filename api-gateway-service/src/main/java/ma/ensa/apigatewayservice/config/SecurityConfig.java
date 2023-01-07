@@ -21,10 +21,11 @@ public class SecurityConfig {
                 .authorizeExchange(exchange ->
                         exchange.pathMatchers("/eureka/**")
                                 .permitAll()
-                                .pathMatchers("/users/private", "/courses", "/media").authenticated()
+                                .pathMatchers("/courses/**").authenticated()
                                 .anyExchange()
                                 .permitAll())
                 .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
+
         serverHttpSecurity
                 .cors().configurationSource(request -> {
                     CorsConfiguration configuration = new CorsConfiguration();
@@ -32,8 +33,11 @@ public class SecurityConfig {
                     configuration.setAllowedMethods(List.of("*"));
                     configuration.setAllowedHeaders(List.of("*"));
                     return configuration;
+
                 });
+
         return serverHttpSecurity.build();
+
     }
 
 }

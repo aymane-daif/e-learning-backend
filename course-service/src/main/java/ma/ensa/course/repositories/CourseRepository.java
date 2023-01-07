@@ -14,4 +14,5 @@ public interface CourseRepository extends PagingAndSortingRepository<Course, Lon
     List<Course> findByPriceType(PriceType priceType);
     List<Course> findByCourseLevel(CourseLevel courseLevel);
     List<Course> findByCourseLevelAndPriceType(CourseLevel courseLevel, PriceType priceType);
+
 }

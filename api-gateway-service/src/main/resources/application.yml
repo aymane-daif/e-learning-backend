@@ -16,14 +16,29 @@ spring:
         uri: lb://user-service
         predicates:
           - Path=/users/**
+
       - id: course-service
         uri: lb://course-service
         predicates:
           - Path=/courses/**
+        filters:
+          - Logging=
+          - TokenRelay=
+          - RemoveRequestHeader=Cookie
       - id: media-service
         uri: lb://media-service
         predicates:
           - Path=/media/**
+
+      - id: payment-service
+        uri: lb://payment-service
+        predicates:
+          - Path=/payment/**
+        filters:
+          - Logging=
+          - TokenRelay=
+          - RemoveRequestHeader=Cookie
+
 
   application:
     name:
