@@ -10,12 +10,13 @@ import com.eleaning.paymentservice.dtos.UserDto;
 import com.eleaning.paymentservice.entities.Sale;
 import com.eleaning.paymentservice.repositories.SaleRepository;
 import com.eleaning.paymentservice.stripe.StripeClient;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
+import org.modelmapper.ModelMapper;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,16 +34,18 @@ public class PaymentService {
     private CourseService courseService;
     @Autowired
     private UserService userService;
+
     public static ModelMapper mapper = new ModelMapper();
 
     public List<SaleDto> buyCourse(PaymentDto paymentDto, String userEmail)
             throws Exception {
+
         List<SaleDto> saleDtoList = new ArrayList<>();
 
         for (Long courseId : paymentDto.getCoursesIds()) {
             CourseDto course = courseExists(courseId);
-            UserDto user = userExists(userEmail);
             Sale sale = new Sale();
+            UserDto user = userExists(userEmail);
             sale.setUserId(user.getUserId());
             sale.setCourseId(courseId);
             sale.setPrice(course.getPrice());
@@ -50,8 +53,10 @@ public class PaymentService {
             saleRepository.save(sale);
             saleDtoList.add(new SaleDto(sale));
         }
+
         stripePayment(paymentDto);
         return saleDtoList;
+
     }
 
     public void stripePayment(PaymentDto paymentDto) throws StripeException {

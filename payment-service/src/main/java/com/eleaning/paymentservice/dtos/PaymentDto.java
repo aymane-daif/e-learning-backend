@@ -14,6 +14,7 @@ public class PaymentDto {
 
     private final String token;
     private final Double price;
+
     private final List<Long> coursesIds = new ArrayList<>();
 
 }

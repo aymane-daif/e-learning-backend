@@ -1,11 +1,8 @@
 package com.eleaning.paymentservice.controllers;
 
-
 import com.eleaning.paymentservice.dtos.PaymentDto;
 import com.eleaning.paymentservice.dtos.SaleDto;
 import com.eleaning.paymentservice.services.PaymentService;
-import com.eleaning.paymentservice.stripe.StripeClient;
-import com.stripe.model.Charge;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +28,7 @@ public class PaymentController {
 
         String userEmail = request.getHeader("email");
         return paymentService.buyCourse(paymentDto, userEmail);
+
     }
 
     @GetMapping ("/sales/{userId}")
@@ -42,5 +40,6 @@ public class PaymentController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
     }
+
 
 }

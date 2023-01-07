@@ -24,6 +24,8 @@ public class Course {
     // TODO: grab this from the cloud
     private String image;
     private Integer noStudents;
+
+    @Temporal(TemporalType.DATE)
     private Date lastUpdated;
 
     @Enumerated
