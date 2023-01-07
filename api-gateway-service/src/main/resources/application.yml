@@ -23,6 +23,20 @@ spring:
         uri: lb://media-service
         predicates:
           - Path=/media/**
+      - id: user-courses-service
+        uri: lb://user-courses-service
+        predicates:
+          - Path=/user-courses/**
+
+      - id: payment-service
+        uri: lb://payment-service
+        predicates:
+          - Path=/payment/**
+        filters:
+          - Logging=
+          - TokenRelay=
+          - RemoveRequestHeader=Cookie
+
 
       - id: payment-service
         uri: lb://payment-service

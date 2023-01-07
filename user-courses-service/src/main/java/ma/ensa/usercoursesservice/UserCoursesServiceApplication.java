@@ -1,18 +1,17 @@
-package ma.ensa.course;
+package ma.ensa.usercoursesservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-
 @SpringBootApplication
-@EnableEurekaClient
 @EnableFeignClients
-public class CourseServiceApplication {
+@EnableEurekaClient
+public class UserCoursesServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(CourseServiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(UserCoursesServiceApplication.class, args);
+	}
 
 }

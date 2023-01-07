@@ -14,6 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import org.modelmapper.ModelMapper;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,9 +35,11 @@ public class PaymentService {
     @Autowired
     private UserService userService;
 
+    public static ModelMapper mapper = new ModelMapper();
+
+
     public SaleDto buyCourse(PaymentDto paymentDto, String userEmail, Long courseId)
             throws Exception {
-
 
         CourseDto course = courseExists(courseId);
         UserDto user = userExists(userEmail);
@@ -44,6 +52,28 @@ public class PaymentService {
 
         saleRepository.save(sale);
         return new SaleDto(sale);
+    }
+
+    public List<SaleDto> buyCourse(PaymentDto paymentDto, String userEmail)
+            throws Exception {
+
+        List<SaleDto> saleDtoList = new ArrayList<>();
+        UserDto user = userExists(userEmail);
+
+        for (Long courseId : paymentDto.getCoursesIds()) {
+            CourseDto course = courseExists(courseId);
+            Sale sale = new Sale();
+            sale.setUserId(user.getUserId());
+            sale.setCourseId(courseId);
+            sale.setPrice(course.getPrice());
+            sale.setDate(new Date());
+            saleRepository.save(sale);
+            saleDtoList.add(new SaleDto(sale));
+        }
+
+        stripePayment(paymentDto);
+        return saleDtoList;
+
     }
 
     public void stripePayment(PaymentDto paymentDto) throws StripeException {
@@ -76,4 +106,13 @@ public class PaymentService {
         }
     }
 
+    public Optional<List<SaleDto>> getAllSalesOfUsers(Long userId) {
+        List<SaleDto> saleDtos = saleRepository.findAllByUserId(userId)
+                .stream().map(sale -> toSaleDto(sale)).collect(Collectors.toList());
+        return Optional.of(saleDtos);
+    }
+
+    private SaleDto toSaleDto(Sale sale) {
+        return mapper.map(sale, SaleDto.class);
+    }
 }

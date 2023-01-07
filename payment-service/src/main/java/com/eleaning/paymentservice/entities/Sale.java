@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -24,6 +21,7 @@ public class Sale {
 
     private Long courseId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
     private Double price;

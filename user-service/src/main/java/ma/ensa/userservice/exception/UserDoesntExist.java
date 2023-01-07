@@ -9,4 +9,8 @@ public class UserDoesntExist extends Exception{
     public UserDoesntExist(){
         super(MESSAGE);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70b230daae1752338880784a0ab3d468adace533
 }
