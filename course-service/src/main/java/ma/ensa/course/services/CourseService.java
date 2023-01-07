@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CourseService {
@@ -47,8 +48,6 @@ public class CourseService {
                 .toList();
     }
 
-    @Async
-    @Transactional
     public Optional<CourseDto> getCourseById(Long id) {
         return courseRepository.findById(id).map(CourseDto::toDto);
     }
