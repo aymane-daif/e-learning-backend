@@ -12,11 +12,9 @@ public class KeycloakConfig {
     static Keycloak keycloak = null;
     final static String serverUrl = "http://localhost:8181/auth";
     public final static String realm = "e-learning";
-    final static String clientId = "user-service";
-
-    final static String clientSecret = "YOUR_CLIENT_SECRET_KEY";
-    final static String USERNAME = "myadmin";
-    final static String PASSWORD = "myadmin";
+    final static String clientId = "gateway-service";
+    final static String USERNAME = "admin";
+    final static String PASSWORD = "admin";
 
     public KeycloakConfig() {
     }

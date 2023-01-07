@@ -48,9 +48,7 @@ public class UserService {
         System.out.println(userDto);
         nickNameAlreadyUsed(userDto.getNickname());
         emailAlreadyUsed(userDto.getEmail());
-        System.out.println("1");
         keycloakService.createUser(userDto);
-        System.out.println("2");
         User user = new User(userDto);
         return Optional.of(userRepository.save(user).getUserId());
 
