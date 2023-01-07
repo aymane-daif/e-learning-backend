@@ -37,16 +37,6 @@ spring:
           - TokenRelay=
           - RemoveRequestHeader=Cookie
 
-
-      - id: payment-service
-        uri: lb://payment-service
-        predicates:
-          - Path=/payment/**
-        filters:
-          - Logging=
-          - TokenRelay=
-          - RemoveRequestHeader=Cookie
-
       - id: certification-service
         uri: lb://certification-service
         predicates:
