@@ -13,7 +13,9 @@ import com.eleaning.paymentservice.stripe.StripeClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -29,21 +31,23 @@ public class PaymentService {
     @Autowired
     private UserService userService;
 
-    public SaleDto buyCourse(PaymentDto paymentDto, String userEmail, Long courseId)
+    public List<SaleDto> buyCourse(PaymentDto paymentDto, String userEmail)
             throws Exception {
+        List<SaleDto> saleDtoList = new ArrayList<>();
 
-
-        CourseDto course = courseExists(courseId);
-        UserDto user = userExists(userEmail);
-        Sale sale = new Sale();
-        sale.setUserId(user.getUserId());
-        sale.setCourseId(courseId);
-        sale.setPrice(course.getPrice());
-        sale.setDate(new Date());
+        for (Long courseId : paymentDto.getCoursesIds()) {
+            CourseDto course = courseExists(courseId);
+            UserDto user = userExists(userEmail);
+            Sale sale = new Sale();
+            sale.setUserId(user.getUserId());
+            sale.setCourseId(courseId);
+            sale.setPrice(course.getPrice());
+            sale.setDate(new Date());
+            saleRepository.save(sale);
+            saleDtoList.add(new SaleDto(sale));
+        }
         stripePayment(paymentDto);
-
-        saleRepository.save(sale);
-        return new SaleDto(sale);
+        return saleDtoList;
     }
 
     public void stripePayment(PaymentDto paymentDto) throws StripeException {

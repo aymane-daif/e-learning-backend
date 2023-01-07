@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/payment")
@@ -20,13 +21,12 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/{courseId}")
-    public SaleDto chargeCard(@RequestBody PaymentDto paymentDto, @PathVariable Long courseId,
-                              HttpServletRequest request) throws Exception {
+    @PostMapping()
+    public List<SaleDto> chargeCard(@RequestBody PaymentDto paymentDto,
+                                    HttpServletRequest request) throws Exception {
 
         String userEmail = request.getHeader("email");
-        return paymentService.buyCourse(paymentDto, userEmail, courseId);
-
+        return paymentService.buyCourse(paymentDto, userEmail);
     }
 
     @GetMapping("/hola")
