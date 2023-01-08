@@ -36,7 +36,7 @@ public class UserController {
 
     }
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable String userId) {
         Optional<UserDto> userDto = userService.getUserById(userId);
 
         if (userDto.isPresent()){
@@ -47,25 +47,26 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
     @PostMapping
-    public ResponseEntity<Long> createNewUser(@RequestBody UserDto userDto) throws
+    public ResponseEntity<String> createNewUser(@RequestBody UserDto userDto) throws
             NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
 
-        Optional<Long> userId = userService.createNewUser(userDto);
+        Optional<String> userId = userService.createNewUser(userDto);
         log.info("user created");
         return ResponseEntity.status(HttpStatus.CREATED).body(userId.get());
 
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> DeleteUser(@PathVariable Long userId) {
+    public ResponseEntity<Void> DeleteUser(@PathVariable String userId) {
         userService.deleteUser(userId);
         log.info("user deleted");
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<Long> updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
-        Optional<Long> user_id = userService.updateUser(userId, userDto);
+    public ResponseEntity<String> updateUser(@PathVariable String userId, @RequestBody UserDto userDto) {
+        log.info("updating user");
+        Optional<String> user_id = userService.updateUser(userId, userDto);
         log.info("user updated");
         return ResponseEntity.status(HttpStatus.OK).body(user_id.get());
     }

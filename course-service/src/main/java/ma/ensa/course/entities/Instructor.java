@@ -15,8 +15,7 @@ import java.util.List;
 @Entity
 public class Instructor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
     @OneToMany(mappedBy = "instructor", cascade = CascadeType.ALL)
     private List<Course> courses;
