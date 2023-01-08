@@ -22,7 +22,6 @@ public class EventCloudRepo {
     @Value("${cloud.server.download-url}")
     String downloadUrl;
 
-
     public void upLoadFile(File file, String path) {
         connector.uploadFile(file, path);
     }

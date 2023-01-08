@@ -4,11 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import ma.ensa.course.dtos.CourseDto;
 import ma.ensa.course.entities.CourseLevel;
 import ma.ensa.course.entities.PriceType;
+import ma.ensa.course.requests.CourseRequest;
 import ma.ensa.course.services.CourseService;
 import org.springframework.data.domain.Page;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -41,6 +45,17 @@ public class CourseController {
     public Optional<CourseDto> getCourseById(@PathVariable Long id) {
         log.info("getting course");
         return courseService.getCourseById(id);
+    }
+    
+    @PostMapping(path = "",
+            consumes = {"multipart/form-data"})
+    public CourseDto createCourse(@ModelAttribute CourseRequest courseRequest){
+
+        System.out.println("coursenam;"+courseRequest.getName());
+        System.out.println("haimage:"+courseRequest.getImage().getOriginalFilename());
+//        System.out.println(email);
+        return new CourseDto();
+
     }
 
 }
