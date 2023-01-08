@@ -33,13 +33,13 @@ public class UploadedFileController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @PostMapping(value = "/upload-file/{course_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<UploadedFileDto> uploadCourseSupport(@RequestParam MultipartFile file, @PathVariable Long course_id) throws FileAlreadyExists {
+    @PostMapping(value = "/upload-file/{course_id}/{lesson_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<UploadedFileDto> uploadCourseSupport(@RequestParam MultipartFile file, @PathVariable Long course_id, @PathVariable Long lesson_id) throws FileAlreadyExists {
         log.info("Starting .....");
         if(file.getContentType().startsWith("image")) {
-            return ResponseEntity.status(HttpStatus.OK).body(this.eventCloudService.uploadFile(file,"/course/image/", course_id));
+            return ResponseEntity.status(HttpStatus.OK).body(this.eventCloudService.uploadFile(file,"/course/image/", course_id, lesson_id));
         }
-        return ResponseEntity.status(HttpStatus.OK).body(this.eventCloudService.uploadFile(file,"/course/video/", course_id));
+        return ResponseEntity.status(HttpStatus.OK).body(this.eventCloudService.uploadFile(file,"/course/video/", course_id, lesson_id));
     }
 
     @GetMapping("/{course_id}")

@@ -37,6 +37,11 @@ spring:
           - TokenRelay=
           - RemoveRequestHeader=Cookie
 
+      - id: certification-service
+        uri: lb://certification-service
+        predicates:
+          - Path=/certifications/**
+
 
       - id: payment-service
         uri: lb://payment-service

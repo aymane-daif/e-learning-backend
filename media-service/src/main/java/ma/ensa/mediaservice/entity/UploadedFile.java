@@ -19,5 +19,6 @@ public class UploadedFile {
     private String path;
     private String sharedPath;
     private Long courseId;
+    private Long lessonId;
 
 }
