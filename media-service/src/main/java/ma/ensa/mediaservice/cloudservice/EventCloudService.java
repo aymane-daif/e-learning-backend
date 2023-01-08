@@ -28,7 +28,7 @@ public class EventCloudService {
 
 	private static final ModelMapper modelMapper = new ModelMapper();
 
-	public UploadedFileDto uploadFile(MultipartFile multipartFile, String path, Long course_id) throws FileAlreadyExists{
+	public UploadedFileDto uploadFile(MultipartFile multipartFile, String path, Long course_id, Long lesson_id) throws FileAlreadyExists{
 		String[] name = multipartFile.getOriginalFilename().split("\\.");
 		String fullFilePath = path.concat(name[0] + "_" + course_id + "." + name[1]);
 		Optional<File> fileOptional = Optional.ofNullable(CloudFileHelper.getTempFileFromMultiPartFile(multipartFile, course_id));
@@ -39,6 +39,7 @@ public class EventCloudService {
 			});
 			UploadedFile uploadedFile = uploadedFileRepository.save(UploadedFile.builder()
 					.courseId(course_id)
+					.lessonId(lesson_id)
 					.path(fullFilePath)
 					.sharedPath(this.doShared(fullFilePath))
 					.build());
