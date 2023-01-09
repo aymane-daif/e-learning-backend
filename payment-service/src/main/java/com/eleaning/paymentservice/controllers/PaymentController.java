@@ -22,14 +22,7 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/{courseId}")
-    public SaleDto chargeCard(@RequestBody PaymentDto paymentDto, @PathVariable Long courseId,
-                              HttpServletRequest request) throws Exception {
 
-        String userEmail = request.getHeader("email");
-        return paymentService.buyCourse(paymentDto, userEmail, courseId);
-
-    }
 
     @PostMapping()
     public List<SaleDto> chargeCard(@RequestBody PaymentDto paymentDto,
