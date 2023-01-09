@@ -43,6 +43,7 @@ public class UserService {
         emailAlreadyUsed(userDto.getEmail());
         keycloakService.createUser(userDto);
         User user = new User(userDto);
+
         return Optional.of(userRepository.save(user).getUserId());
 
     }

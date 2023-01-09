@@ -26,11 +26,12 @@ public class LoggingGatewayFilterFactory extends AbstractGatewayFilterFactory {
                 claimsSet = signedJWT.getJWTClaimsSet();
 
                 String username = (String) claimsSet.getClaims().get("preferred_username");
+                String userId = (String)claimsSet.getClaims().get("sub");
                 String email = (String) claimsSet.getClaims().get("email");
-                System.out.println(email);
                 exchange.getRequest().mutate()
                         .header("username", username)
                         .header("email", email)
+                        .header("userId",userId)
                         .build();
 
             } catch (Exception e) {

@@ -27,7 +27,7 @@ spring:
         uri: lb://user-courses-service
         predicates:
           - Path=/user-courses/**
-
+     
       - id: payment-service
         uri: lb://payment-service
         predicates:

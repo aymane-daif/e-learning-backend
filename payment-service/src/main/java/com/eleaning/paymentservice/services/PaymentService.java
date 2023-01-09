@@ -37,10 +37,12 @@ public class PaymentService {
 
     public static ModelMapper mapper = new ModelMapper();
 
+
     public List<SaleDto> buyCourse(PaymentDto paymentDto, String userEmail)
             throws Exception {
 
         List<SaleDto> saleDtoList = new ArrayList<>();
+        UserDto user = userExists(userEmail);
 
         for (Long courseId : paymentDto.getCoursesIds()) {
             CourseDto course = courseExists(courseId);
