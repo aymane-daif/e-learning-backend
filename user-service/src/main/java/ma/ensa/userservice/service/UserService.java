@@ -44,7 +44,6 @@ public class UserService {
         nickNameAlreadyUsed(userDto.getNickname());
         emailAlreadyUsed(userDto.getEmail());
         keycloakService.createUser(userDto);
-        keycloakService.createUser(userDto);
         User user = new User(userDto);
 
         return keycloakService.createUser(userDto);
