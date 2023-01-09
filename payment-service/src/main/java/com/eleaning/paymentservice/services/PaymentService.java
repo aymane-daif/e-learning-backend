@@ -38,22 +38,6 @@ public class PaymentService {
     public static ModelMapper mapper = new ModelMapper();
 
 
-    public SaleDto buyCourse(PaymentDto paymentDto, String userEmail, Long courseId)
-            throws Exception {
-
-        CourseDto course = courseExists(courseId);
-        UserDto user = userExists(userEmail);
-        Sale sale = new Sale();
-        sale.setUserId(user.getUserId());
-        sale.setCourseId(courseId);
-        sale.setPrice(course.getPrice());
-        sale.setDate(new Date());
-        stripePayment(paymentDto);
-
-        saleRepository.save(sale);
-        return new SaleDto(sale);
-    }
-
     public List<SaleDto> buyCourse(PaymentDto paymentDto, String userEmail)
             throws Exception {
 
