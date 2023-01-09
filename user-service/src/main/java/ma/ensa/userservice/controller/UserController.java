@@ -2,7 +2,6 @@ package ma.ensa.userservice.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import ma.ensa.userservice.Dto.UserDto;
-import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.exception.EmailAlreadyUsed;
 import ma.ensa.userservice.exception.KeycloakException;
 import ma.ensa.userservice.exception.NickNameALreadyUsed;

@@ -14,11 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class UserDto {
-<<<<<<< HEAD
-    private Long id;
-=======
     private Long userId;
->>>>>>> afb696dc2d9e99c3093b2949b011e4d677a5d24c
     private String firstName;
     private String lastName;
     private String nickname;

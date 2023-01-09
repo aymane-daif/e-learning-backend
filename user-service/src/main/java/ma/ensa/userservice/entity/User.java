@@ -2,6 +2,7 @@ package ma.ensa.userservice.entity;
 
 import lombok.*;
 import ma.ensa.userservice.Dto.UserDto;
+import ma.ensa.userservice.entity.Role;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,13 +13,10 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    @Id
-<<<<<<< HEAD
-    private Long id;
-=======
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
->>>>>>> afb696dc2d9e99c3093b2949b011e4d677a5d24c
+
     private String firstName;
     private String lastName;
     @Column(unique = true)
