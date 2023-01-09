@@ -43,6 +43,8 @@ spring:
           - Path=/certifications/**
 
 
+
+
   application:
     name:
       api-gateway

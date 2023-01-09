@@ -5,6 +5,7 @@ import com.elearning.certification_service.dtos.CertificateDto;
 import com.elearning.certification_service.exceptions.CertificateDoesntExist;
 import com.elearning.certification_service.services.CertificationService;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 
 
 @RestController
@@ -20,7 +24,6 @@ public class CertificationController {
 
     @Autowired
     private CertificationService certificationService;
-
 
     @GetMapping("/")
     public void createCertificate(@RequestBody CertificateDto certificateDto) {

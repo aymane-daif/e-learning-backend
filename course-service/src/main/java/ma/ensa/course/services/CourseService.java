@@ -1,24 +1,26 @@
 package ma.ensa.course.services;
 
 import ma.ensa.course.dtos.CourseDto;
+import ma.ensa.course.entities.Course;
 import ma.ensa.course.entities.CourseLevel;
 import ma.ensa.course.entities.PriceType;
 import ma.ensa.course.repositories.CourseRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CourseService {
+
+    private final MediaService mediaService;
     private final CourseRepository courseRepository;
 
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(MediaService mediaService, CourseRepository courseRepository) {
+        this.mediaService = mediaService;
         this.courseRepository = courseRepository;
     }
 
@@ -50,5 +52,12 @@ public class CourseService {
 
     public Optional<CourseDto> getCourseById(Long id) {
         return courseRepository.findById(id).map(CourseDto::toDto);
+    }
+
+    public CourseDto createCourse(CourseDto courseDto, MultipartFile image){
+//        mediaService.uploadCourseSupport(image,);
+        Course course = Course.fromDto(courseDto);
+        return courseDto;
+
     }
 }
