@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class UserDto {
-    private String userId;
+    private Long userId;
     private String firstName;
     private String lastName;
     private String nickname;

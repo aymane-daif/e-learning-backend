@@ -1,6 +1,5 @@
 package ma.ensa.userservice.service;
 
-import lombok.extern.slf4j.Slf4j;
 import ma.ensa.userservice.Dto.UserDto;
 import ma.ensa.userservice.entity.User;
 import ma.ensa.userservice.exception.EmailAlreadyUsed;
@@ -16,7 +15,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Slf4j
 public class UserService {
 
     @Autowired
@@ -39,24 +37,26 @@ public class UserService {
         return mapper.map(user, UserDto.class);
     }
 
-    public Optional<String> createNewUser(UserDto userDto) throws NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
+    public Optional<Long> createNewUser(UserDto userDto) throws NickNameALreadyUsed, EmailAlreadyUsed, KeycloakException {
         System.out.println(userDto);
         nickNameAlreadyUsed(userDto.getNickname());
         emailAlreadyUsed(userDto.getEmail());
-        return keycloakService.createUser(userDto);
+        keycloakService.createUser(userDto);
+        User user = new User(userDto);
+        return Optional.of(userRepository.save(user).getUserId());
 
     }
 
-    public Optional<UserDto> getUserById(String user_id) {
+    public Optional<UserDto> getUserById(Long user_id) {
         return Optional.of(toUserDto(userRepository.findByUserId(user_id)));
     }
 
-    public void deleteUser(String userId) {
+    public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
     }
 
-    public Optional<String> updateUser(String userId, UserDto userDto) {
-        User user = userRepository.findByUserId(userId);
+    public Optional<Long> updateUser(String keycid, UserDto userDto) {
+        User user = userRepository.findByUserId(userDto.getUserId());
         if (userDto.getEmail() != null) {
             user.setEmail(userDto.getEmail());
         }
@@ -75,7 +75,7 @@ public class UserService {
         if (userDto.getDateOfBirth() != null) {
             user.setDateOfBirth(userDto.getDateOfBirth());
         }
-        keycloakService.updateUser(userId, userDto);
+        keycloakService.updateUser(keycid, userDto);
         return Optional.of(userRepository.save(user).getUserId());
     }
 

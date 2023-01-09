@@ -11,7 +11,7 @@ import ma.ensa.course.entities.Instructor;
 @Data
 @Builder
 public class InstructorDto {
-    private String id;
+    private Long id;
     private String name;
     private int noCourses;
 
