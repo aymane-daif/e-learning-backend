@@ -22,7 +22,6 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-<<<<<<< HEAD
     @PostMapping("/{courseId}")
     public SaleDto chargeCard(@RequestBody PaymentDto paymentDto, @PathVariable Long courseId,
                               HttpServletRequest request) throws Exception {
@@ -31,9 +30,6 @@ public class PaymentController {
         return paymentService.buyCourse(paymentDto, userEmail, courseId);
 
     }
-
-=======
->>>>>>> afb696dc2d9e99c3093b2949b011e4d677a5d24c
 
     @PostMapping()
     public List<SaleDto> chargeCard(@RequestBody PaymentDto paymentDto,
