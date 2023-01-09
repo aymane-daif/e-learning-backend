@@ -25,16 +25,16 @@ public class CertificationController {
     @Autowired
     private CertificationService certificationService;
 
-    @GetMapping("/")
-    public void createCertificate(@RequestBody CertificateDto certificateDto) {
-        certificationService.createCertificate(certificateDto);
+    @PostMapping
+    public String createCertificate(@RequestBody CertificateDto certificateDto) {
+        return certificationService.createCertificate(certificateDto);
     }
 
     @GetMapping("/{id}")
     public CertificateDto getCertificate(@PathVariable String id) throws CertificateDoesntExist {
         return certificationService.getCertificate(id);
     }
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     ResponseEntity<Integer> getUserCertifacationsNumber(@PathVariable Long userId) {
         return ResponseEntity.status(HttpStatus.OK).body(certificationService.getUserCertifacationsNumber(userId).get());
     }

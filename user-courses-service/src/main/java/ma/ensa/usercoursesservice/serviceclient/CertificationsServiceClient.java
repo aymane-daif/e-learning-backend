@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @FeignClient("certification-service")
 public interface CertificationsServiceClient {
-    @GetMapping("/certifications/{userId}")
+    @GetMapping("/certifications/user/{userId}")
     ResponseEntity<Integer> getUserCertifacationsNumber(@PathVariable Long userId);
 }

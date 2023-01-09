@@ -8,7 +8,8 @@ INSERT INTO instructor(id, name) VALUES (1, 'Aaron Carla'),
                                         (8, 'Abdul Phoebe'),
                                         (9, 'Farrah Karoline'),
                                         (10, 'Luanne Philomena'),
-                                        (11, 'Karol Luba');
+                                        (11, 'Karol Luba'),
+                                        (12, 'Abderrazak Nejoui');
 
 INSERT INTO course(
    id, course_level, price_type, description, last_updated, name, no_students, price, instructor_id
@@ -22,7 +23,8 @@ INSERT INTO course(
 (7, 0, 0, 'A Unique Interactive Python Experience', CURRENT_DATE, 'The Modern Python 3 Bootcamp', 3200, 0, 3),
 (8, 2, 1, 'Get a kick start on your career and ace your coding interviews!', CURRENT_DATE, 'Python for Data Structures, Algorithms, and Interviews!', 2300, 520, 3),
 (9, 1, 1, 'Harness The Power Of Machine Learning For Unsupervised & Supervised Learning In Python', CURRENT_DATE, 'Clustering & Classification With Machine Learning In Python', 2300, 520, 4),
-(10, 0, 1, 'Become an Experienced Java Developer with Just One Course', CURRENT_DATE, 'The Complete Java Development Bootcamp', 700, 130, 5);
+(10, 0, 1, 'Become an Experienced Java Developer with Just One Course', CURRENT_DATE, 'The Complete Java Development Bootcamp', 700, 130, 5),
+(11, 0, 1, 'Learn java from scratch', CURRENT_DATE, 'Learn java from scratch description', 0, 200, 12);
 
 INSERT INTO lesson(id, is_done, lesson_type, name) VALUES
 (1, 0, 0, 'Introduction to React'),

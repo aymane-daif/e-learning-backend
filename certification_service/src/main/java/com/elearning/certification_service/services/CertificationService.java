@@ -17,10 +17,11 @@ public class CertificationService {
     @Autowired
     private CertificationRepository certificationRepository;
 
-    public void createCertificate(CertificateDto certificateDto){
+    public String createCertificate(CertificateDto certificateDto){
         Certificate certificate  = new Certificate(certificateDto);
         certificate.setIssuedDate(new Date());
-        certificationRepository.save(certificate);
+        Certificate createdCeertif = certificationRepository.save(certificate);
+        return createdCeertif.getId();
     }
 
     public CertificateDto getCertificate(String id) throws CertificateDoesntExist {
