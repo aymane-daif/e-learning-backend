@@ -63,11 +63,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(null);
     }
 
-    @PatchMapping("/{userId}")
-    public ResponseEntity<Long> updateUser(@PathVariable Long userId, @RequestBody UserDto userDto) {
-        Optional<Long> user_id = userService.updateUser(userId, userDto);
+    @PatchMapping("/{keycloakId}")
+    public ResponseEntity<Long> updateUser(@PathVariable String keycloakId, @RequestBody UserDto userDto) {
+        Optional<Long> userId = userService.updateUser(keycloakId, userDto);
         log.info("user updated");
-        return ResponseEntity.status(HttpStatus.OK).body(user_id.get());
+        return ResponseEntity.status(HttpStatus.OK).body(userId.get());
     }
 
     @GetMapping("/email/{userEmail}")

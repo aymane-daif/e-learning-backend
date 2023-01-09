@@ -8,10 +8,12 @@ import ma.ensa.userservice.keycloak.KeycloakConfig;
 import ma.ensa.userservice.keycloak.KeycloakUtils;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.Response;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -32,6 +34,16 @@ public class KeycloakService {
             log.error(exception.getMessage());
             throw new KeycloakException(exception.getMessage());
         }
+    }
+
+    public void updateUser(String keycid, UserDto userDto) {
+        UserRepresentation userRepresentation = new UserRepresentation();
+        userRepresentation.setFirstName(userDto.getFirstName());
+        userRepresentation.setLastName(userDto.getLastName());
+        userRepresentation.setEmail(userDto.getEmail());
+        userRepresentation.setUsername(userDto.getNickname());
+        log.info(keycid);
+        KeycloakConfig.getUsersResource().get(keycid).update(userRepresentation);
     }
 
     public void addRolesToKeycloakUser(Response response, Role userRole) {

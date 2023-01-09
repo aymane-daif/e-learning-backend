@@ -55,8 +55,8 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public Optional<Long> updateUser(Long userId, UserDto userDto) {
-        User user = userRepository.findByUserId(userId);
+    public Optional<Long> updateUser(String keycid, UserDto userDto) {
+        User user = userRepository.findByUserId(userDto.getUserId());
         if (userDto.getEmail() != null) {
             user.setEmail(userDto.getEmail());
         }
@@ -75,6 +75,7 @@ public class UserService {
         if (userDto.getDateOfBirth() != null) {
             user.setDateOfBirth(userDto.getDateOfBirth());
         }
+        keycloakService.updateUser(keycid, userDto);
         return Optional.of(userRepository.save(user).getUserId());
     }
 
