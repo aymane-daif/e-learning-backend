@@ -13,7 +13,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
@@ -30,7 +30,7 @@ public class User {
     private Role role;
 
     public User(UserDto userDto){
-        id = userDto.getId();
+        userId = userDto.getUserId();
         firstName = userDto.getFirstName();
         lastName = userDto.getLastName();
         nickname =  userDto.getNickname();
