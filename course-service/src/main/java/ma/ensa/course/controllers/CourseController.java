@@ -49,13 +49,12 @@ public class CourseController {
     
     @PostMapping(path = "",
             consumes = {"multipart/form-data"})
-<<<<<<< HEAD
     public CourseDto createCourse(@RequestParam String name ,
                                   @RequestParam CourseLevel courseLevel ,
                                   @RequestParam PriceType priceType ,
                                   @RequestParam Double price ,
                                   @RequestParam String description ,
-                                  @RequestParam MultipartFile image,HttpServletRequest request){
+                                  @RequestParam MultipartFile image,HttpServletRequest request) {
 
         CourseDto courseDto = new CourseDto();
         courseDto.setName(name);
@@ -64,17 +63,7 @@ public class CourseController {
         courseDto.setDescription(description);
         courseDto.setPrice(price);
 
-        courseService.createCourse(courseDto , image);
-=======
-    public CourseDto createCourse(@RequestParam String name , @RequestParam MultipartFile image,HttpServletRequest request){
-//        System.out.println("coursenam;"+courseRequest.getName());
-//        System.out.println("haimage:"+courseRequest.getImage().getOriginalFilename());
-//        System.out.println(email);
-        System.out.println("coursenam;"+name);
-        System.out.println("haimage:"+image.getOriginalFilename());
-        System.out.println(request.getHeader("email"));
->>>>>>> afb696dc2d9e99c3093b2949b011e4d677a5d24c
-        return new CourseDto();
+        return courseService.createCourse(courseDto, image);
 
     }
 
