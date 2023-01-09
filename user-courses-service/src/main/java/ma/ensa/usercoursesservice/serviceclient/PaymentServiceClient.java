@@ -10,5 +10,5 @@ import java.util.List;
 @FeignClient(name = "payment-service")
 public interface PaymentServiceClient {
     @GetMapping ("/payment/sales/{userId}")
-    ResponseEntity<List<SaleDto>> getAllSalesOfUsers(@PathVariable String userId);
+    ResponseEntity<List<SaleDto>> getAllSalesOfUsers(@PathVariable Long userId);
 }

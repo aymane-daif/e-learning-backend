@@ -19,7 +19,7 @@ public class UserCoursesService {
     CourseServiceClient courseServiceClient;
 
     @Async
-    public CompletableFuture<List<Optional<CourseDto>>> getUserCourses(String userId) {
+    public CompletableFuture<List<Optional<CourseDto>>> getUserCourses(Long userId) {
         List<SaleDto> saleDtos = paymentServiceClient.getAllSalesOfUsers(userId).getBody();
         List<Optional<CourseDto>> courseDtos = new ArrayList<>();
         if(saleDtos != null) {

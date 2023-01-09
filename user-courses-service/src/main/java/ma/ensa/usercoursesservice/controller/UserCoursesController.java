@@ -23,7 +23,7 @@ public class UserCoursesController {
     private UserCoursesService userCoursesService;
 
     @GetMapping("/{userId}")
-    public ResponseEntity<CompletableFuture<List<Optional<CourseDto>>>> getUserCourses(@PathVariable String userId) {
+    public ResponseEntity<CompletableFuture<List<Optional<CourseDto>>>> getUserCourses(@PathVariable Long userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userCoursesService.getUserCourses(userId));
     }
 }
