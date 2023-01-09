@@ -63,7 +63,7 @@ public class PaymentService {
         for (Long courseId : paymentDto.getCoursesIds()) {
             CourseDto course = courseExists(courseId);
             Sale sale = new Sale();
-            UserDto user = userExists(userEmail);
+            UserDto userDto = userExists(userEmail);
             sale.setUserId(user.getUserId());
             sale.setCourseId(courseId);
             sale.setPrice(course.getPrice());

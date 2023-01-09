@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class User {
     @Id
-    private String userId;
+    private Long id;
     private String firstName;
     private String lastName;
     @Column(unique = true)
@@ -26,9 +26,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     public User(UserDto userDto){
-        userId = userDto.getUserId();
+        id = userDto.getId();
         firstName = userDto.getFirstName();
         lastName = userDto.getLastName();
         nickname =  userDto.getNickname();
