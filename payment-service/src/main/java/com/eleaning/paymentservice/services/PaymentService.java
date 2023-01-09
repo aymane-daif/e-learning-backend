@@ -44,7 +44,6 @@ public class PaymentService {
             throws Exception {
 
         List<SaleDto> saleDtoList = new ArrayList<>();
-        UserDto user = userExists(userEmail);
 
         for (Long courseId : paymentDto.getCoursesIds()) {
             CourseDto course = courseExists(courseId);
