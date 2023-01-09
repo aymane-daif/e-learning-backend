@@ -25,11 +25,6 @@ public class CertificationController {
     @Autowired
     private CertificationService certificationService;
 
-    @GetMapping("/hola")
-    public String createCertificate(@RequestBody CertificateDto certificateDto){
-        certificationService.createCertificate(certificateDto);
-        return "hola";
-
     @GetMapping("/")
     public void createCertificate(@RequestBody CertificateDto certificateDto) {
         certificationService.createCertificate(certificateDto);
