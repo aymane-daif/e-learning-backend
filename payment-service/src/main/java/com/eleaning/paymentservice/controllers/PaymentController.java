@@ -33,7 +33,7 @@ public class PaymentController {
     }
 
     @GetMapping ("/sales/{userId}")
-    public ResponseEntity<List<SaleDto>> getAllSalesOfUsers(@PathVariable String userId) {
+    public ResponseEntity<List<SaleDto>> getAllSalesOfUsers(@PathVariable Long userId) {
         log.info("getting sales");
         Optional<List<SaleDto>> saleDtos = paymentService.getAllSalesOfUsers(userId);
         if(saleDtos.isPresent()) {

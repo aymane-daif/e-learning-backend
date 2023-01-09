@@ -30,4 +30,8 @@ public class CertificationService {
         }
         return new CertificateDto(certificate.get());
     }
+
+    public Optional<Integer> getUserCertifacationsNumber(Long userId) {
+        return Optional.of(certificationRepository.countAllByUserId(userId));
+    }
 }

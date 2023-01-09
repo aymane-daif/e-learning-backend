@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class InstructorDto {
-    private String id;
+    private Long id;
     private String name;
     private int noCourses;
 }

@@ -9,7 +9,7 @@ import java.util.Date;
 @AllArgsConstructor @NoArgsConstructor
 public class SaleDto {
     private Long id;
-    private String userId;
+    private Long userId;
     private Long courseId;
 
     private Date date;
