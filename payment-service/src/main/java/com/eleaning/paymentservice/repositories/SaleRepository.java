@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Repository
-public interface SaleRepository extends JpaRepository<Sale, Long> {
-    List<Sale> findAllByUserId(Long userId);
+public interface SaleRepository extends JpaRepository<Sale, String> {
+    List<Sale> findAllByUserId(String userId);
 
 }

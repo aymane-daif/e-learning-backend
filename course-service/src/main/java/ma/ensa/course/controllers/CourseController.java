@@ -49,11 +49,13 @@ public class CourseController {
     
     @PostMapping(path = "",
             consumes = {"multipart/form-data"})
-    public CourseDto createCourse(@ModelAttribute CourseRequest courseRequest){
-
-        System.out.println("coursenam;"+courseRequest.getName());
-        System.out.println("haimage:"+courseRequest.getImage().getOriginalFilename());
+    public CourseDto createCourse(@RequestParam String name , @RequestParam MultipartFile image,HttpServletRequest request){
+//        System.out.println("coursenam;"+courseRequest.getName());
+//        System.out.println("haimage:"+courseRequest.getImage().getOriginalFilename());
 //        System.out.println(email);
+        System.out.println("coursenam;"+name);
+        System.out.println("haimage:"+image.getOriginalFilename());
+        System.out.println(request.getHeader("email"));
         return new CourseDto();
 
     }

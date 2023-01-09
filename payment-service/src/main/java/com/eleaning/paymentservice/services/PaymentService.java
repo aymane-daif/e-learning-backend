@@ -107,7 +107,7 @@ public class PaymentService {
         }
     }
 
-    public Optional<List<SaleDto>> getAllSalesOfUsers(Long userId) {
+    public Optional<List<SaleDto>> getAllSalesOfUsers(String userId) {
         List<SaleDto> saleDtos = saleRepository.findAllByUserId(userId)
                 .stream().map(sale -> toSaleDto(sale)).collect(Collectors.toList());
         return Optional.of(saleDtos);

@@ -13,8 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private String userId;
     private String firstName;
     private String lastName;
     @Column(unique = true)
